@@ -1,7 +1,10 @@
 package com.home.uriparamexamples;
 
+import lombok.Builder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
@@ -31,10 +34,15 @@ public class UriParamExamplesApplication {
         return "Hello World !!" + a + " -- " + b;
     }
 
-//    @GetMapping(value = "/get")
-//    public String toStrin11(@RequestAttribute int b) {
-//
-//        return "Hello World !!" + a + " -- " + b;
-//    }
+
+    ////http://localhost:8080/get?a=10&b=200
+
+    @GetMapping(value = "/save")
+    public ResponseEntity<String> toStrin11(@RequestParam int a, @RequestParam int b) {
+
+        //return ResponseEntity.status(HttpStatus.ACCEPTED).body("Well Done my Boy !! ");
+
+        return ResponseEntity.status(200).body("tesion padadku");
+    }
 
 }
