@@ -1,9 +1,16 @@
 package com.home.uriparamexamples.controller;
 
 
+import com.home.uriparamexamples.exceptions.InvalidCountryException;
 import com.home.uriparamexamples.model.Country;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.util.NumberUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -71,6 +78,22 @@ public class TestController {
      */
 
     //todo post
+    @PostMapping(value = "/sav")
+    @ResponseBody
+    public ResponseEntity<Country> saveCuntry(@RequestBody Country country) {
 
+        if (StringUtils.isEmpty(country.getName())) {
 
+            throw new InvalidCountryException("Country object is empty ");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @ExceptionHandler
+    public String handleInvalidCountryException(InvalidCountryException exception) {
+
+        System.out.println("TestController.handleInvalidCountryException -- >");
+
+        return exception.getMessage();
+    }
 }
